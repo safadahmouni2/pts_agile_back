@@ -1,0 +1,7 @@
+enum DailyScrumStatusInfo {
+  NOT_DONE
+  PLANNED
+  NOW
+  DONE
+  DONE_EARLIER
+}

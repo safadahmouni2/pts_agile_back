@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ 
+	<!-- default spring boot logging configuration -->
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- custom logging configuration -->
+	<springProperty scope="context" name="LOGS" source="pts.log.path" defaultValue="./logs"/> 
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d %p [%t] %C.%M\(%line\) %m%n%throwable</Pattern>
+        </layout>
+    </appender>
+    <logger name="io.swagger.models.parameters.AbstractSerializableParameter" level="ERROR" />
+    <appender name="all" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/agile-service.log</file>
+        
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p [%t] %C.%M\(%line\) %m%n%throwable</Pattern>
+        </encoder>
+ 	
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOGS}/agile-service.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>99</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    
+    <appender name="warn-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/agile-service-warn.log</file>
+        
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p [%t] %C.%M\(%line\) %m%n%throwable</Pattern>
+        </encoder>
+        
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        	<level>WARN</level>
+    	</filter>
+ 
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOGS}/agile-service-warn.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>99</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/agile-service-error.log</file>
+        
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p [%t] %C.%M\(%line\) %m%n%throwable</Pattern>
+        </encoder>
+        
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        	<level>ERROR</level>
+    	</filter>
+ 
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOGS}/agile-service-error.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>99</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+  	<springProfile name="!local">
+	    <root level="info">
+	        <appender-ref ref="warn-error"/>
+	        <appender-ref ref="all" />
+	        <appender-ref ref="error"/>
+	    </root>
+	</springProfile>
+	
+	<springProfile name="local">
+	    <logger name="com.pts" level="debug" additivity="false">
+	        <appender-ref ref="all" />
+	        <appender-ref ref="warn-error"/>
+	        <appender-ref ref="console"/>
+	        <appender-ref ref="error"/>
+  		</logger>
+	    <root level="info">
+	        <appender-ref ref="all" />
+	        <appender-ref ref="warn-error"/>
+	        <appender-ref ref="console"/>
+	        <appender-ref ref="error"/>
+	    </root>
+  	</springProfile>
+    
+</configuration>

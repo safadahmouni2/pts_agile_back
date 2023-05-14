@@ -1,0 +1,129 @@
+# scalars
+scalar Long
+scalar Date
+scalar LocalTime
+scalar LocalDateTime
+scalar BigDecimal
+
+# inputs
+input TopicInput {
+	name: String
+	description: String
+	stateId: Long
+	productId: Long
+	project: String
+	displayOrder: Long
+}
+
+input SprintInput {
+	productId: Long!
+	stateId: Long
+	name: String
+	shortName: String
+	project: String
+	parent: String
+	dsMeetingUrl: String
+	startDate: Date
+	endDate: Date
+	dsStartTime: LocalTime
+	dsDuration: Long
+}
+
+input SprintUpdateInput {
+	stateId: Long
+	name: String
+	shortName: String
+	project: String
+	dsMeetingUrl: String
+	startDate: Date
+	endDate: Date
+	dsStartTime: LocalTime
+	dsDuration: Long
+}
+
+input SprintMemberInput {
+  	stateId: Long
+  	userCode: String,
+  	role: String,
+  	sprintId: Long
+}
+
+input FeatureInput {
+	name: String
+	description: String
+	stateId: Long
+	productId: Long
+	project: String
+	displayOrder: Long
+}
+
+input DefaultTopicInput {
+	productId: Long!
+    topicId: Long
+}
+
+input DsParticipantInput {
+	stateId: Long
+  	userId: Long
+  	userCode: String
+  	dailyScrumId: Long
+  	ticketId: Long
+}
+
+input UpdateDsParticipantInput {
+	stateId: Long
+}
+
+input DailyScrumInput {
+    sprintId: Long 
+    stateId: Long
+    startedAt: LocalDateTime 
+    finishedAt: LocalDateTime
+    sprintProgress: BigDecimal 
+}
+
+input DailyScrumUpdateInput {
+    stateId: Long
+    finishedAt: LocalDateTime
+    sprintProgress: BigDecimal 
+}
+
+input SearchSprintMemberInput {
+ 	sprintId: Long 
+    stateId: Long
+}
+
+input UserStoryInput {
+	productId: Long!
+ 	sprintId: Long 
+    stateId: Long
+    featureId: Long
+    topicId: Long
+    responsibleId: Long
+    parentId: Long
+    progress: BigDecimal
+    storyPoints: BigDecimal
+    shortDescription: String
+    longDescription: String
+    userCode: String 
+  	orderByTopic:BigDecimal
+ 	acceptanceCriteria: String
+ 	urgencyId: Long
+}
+
+input UserStoryUpdateInput {
+    sprintId: Long 
+    featureId: Long
+    stateId: Long
+    topicId: Long
+    parentId: Long
+    orderByTopic:BigDecimal
+    progress: BigDecimal
+    storyPoints: BigDecimal
+    shortDescription: String
+    longDescription: String
+    acceptanceCriteria: String
+    userCode: String 
+    responsibleId : Long
+    urgencyId: Long
+}

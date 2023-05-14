@@ -1,0 +1,1 @@
+##### Starting Spring Boot Application '${info.app.name}'

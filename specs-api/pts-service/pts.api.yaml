@@ -1,0 +1,1220 @@
+openapi: 3.0.3
+info:
+  title: PTS Service
+  description: >-
+    service for PTS
+  version: 0.0.1
+servers:
+  - url: http://192.168.0.78:8085/services
+    description: dev development
+
+paths:
+  /request/getJsonData/1000356:  
+    get:
+      summary: endpoint used to get product by id
+      operationId: getProductById
+      tags:
+        - product
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetProductByIdResponse'
+  /request/getJsonData/1000330:  
+    get:
+      summary: endpoint used to get products by sprint id 
+      operationId: getProductBySprintsId
+      tags:
+        - product
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetProductsBySprintIdResponse'
+  /request/getJsonData/1000341:  
+    get:
+      summary: endpoint used to get list of topic by  product id
+      operationId: getTopicsByProductId
+      tags:
+        - topic
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetTopicsByProductIdResponse'
+  /request/getJsonData/1000364:  
+    get:
+      summary: endpoint used to get topic max order by productName
+      operationId: getTopicMaxOrder
+      tags:
+        - topic
+      parameters:
+        - name: param
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetTopicMaxOrderByProductNameResponse'
+  /request/getJsonData/1000345:  
+    get:
+      summary: endpoint used to get current user
+      operationId: getCurrentUser
+      tags:
+        - user
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetCurrentUserResponse'
+  /request/getJsonData/1000564:  
+    get:
+      summary: endpoint used to get list of participant and sprint team
+      operationId: getListParticipantsAndSprintTeam
+      tags:
+        - user
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+        - name: param2
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetListParticipantsAndSprintTeam' 
+  /request/getJsonData/1000357:  
+    get:
+      summary: endpoint used to get my daily scrums
+      operationId: getMyDailyScrums
+      tags:
+        - daily-scrum
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetMyDailyScrumsRsponse'  
+  /request/getJsonData/1000348:  
+    get:
+      summary: endpoint used to get my products 
+      operationId: getMyProducts
+      tags:
+        - product
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetMyProductsRsponse'
+  /request/getJsonData/1000360:  
+    get:
+      summary: endpoint used to get user story details by user story ID
+      operationId: getUserStoryDetail
+      tags:
+        - userstory
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetUserStoryDetailResponse'
+  /request/getJsonData/1000377:  
+    get:
+      summary: endpoint used to get Sprint Name 
+      operationId: getSprintName
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetSprintNameResponse'
+  /request/getJsonData/1000383:  
+    get:
+      summary: endpoint used to get my sprint by product id 
+      operationId: getMySprintsByProduct
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetMySprintsByProduct'
+  /request/getJsonData/1000317:  
+    get:
+      summary: endpoint used to get User Stories By Sprint
+      operationId: getUserStoriesBySprint
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetUserStoriesBySprintResponse'
+  /request/getJsonData/1000373:  
+    get:
+      summary: endpoint used to get UnAssigned Tasks
+      operationId: getUnAssignedTasks
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetUnAssignedTasksResponse'
+  /request/getJsonData/1000376:  
+    get:
+      summary: endpoint used to get open sprint by product
+      operationId: getOpenedSprintsByProduct
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOpenedSprintsByProductRsponse'  
+  /request/getJsonData/1000350:  
+    get:
+      summary: endpoint used to get sprint by product id
+      operationId: getAllSprintsByProduct
+      tags:
+        - sprint
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetSprintsByProductIdResponse'
+  /request/getJsonData/1000324:  
+    get:
+      summary: endpoint used to get all status of user story
+      operationId: getAllStatusOfUserStory
+      tags:
+        - userstory
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetStatusOfUserStoryResponse'
+  /request/getJsonData/1000367:  
+    get:
+      summary: endpoint used to get all project by product id
+      operationId: getAllProjectByProduct
+      tags:
+        - project
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetProjectByProductIdResponse'
+  /ticketing/ticket/save:  
+    post:
+      summary: endpoint used to add ticket
+      operationId: addTicket
+      tags:
+        - ticket
+      parameters:
+        - name: fields
+          in: query
+          description: A comma-seperated list of fields
+          schema:
+            type: array
+            items:
+              type: object
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/TicketFormDto'
+    put:
+      summary: endpoint used to update ticket
+      operationId: updateTicket
+      tags:
+        - ticket
+      parameters:
+        - name: fields
+          in: query
+          description: A comma-seperated list of fields
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/TicketFormDto'
+  /request/getJsonData/1000343:  
+    get:
+      summary: endpoint used to get all user stories by product id and topic id
+      operationId: getListUserStory
+      tags:
+        - userstory
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+        - name: param2
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetUserStoryByProductIdAndTopicIdResponse'
+  /request/getJsonData/1000372:  
+    get:
+      summary: endpoint used to get all team members wtih assigned roles by product name
+      operationId: getproductTeam
+      tags:
+        - user
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetProductTeamResponse'
+  /request/getJsonData/1000559:  
+    get:
+      summary: endpoint used to get all not assigned roles to user in sprint
+      operationId: getListNotAssignedRolesToUserInSprint
+      tags:
+        - user
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+        - name: param2
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/ListNotAssignedRolesToUserInSprintResponse'
+  /request/getJsonData/1000563:  
+    get:
+      summary: endpoint used to get all not assigned roles to user in sprint by query
+      operationId: searchListNotAssignedRolesToUserInSprintByQuery
+      tags:
+        - user
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+        - name: param2
+          in: query
+          schema:
+            type: string
+        - name: param3
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/ListNotAssignedRolesToUserInSprintResponse'
+  /request/getJsonData/1000558:  
+    get:
+      summary: endpoint used to get all assigned roles to user in sprint
+      operationId: getUserRoleSprintMemberBySprint
+      tags:
+        - user
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: string
+        - name: param2
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                   $ref: '#/components/schemas/GetUserRoleSprintMemberBySprintResponse'
+  /request/getJsonData/1000562:  
+    get:
+      summary: endpoint used to get allowed state list by status id
+      operationId: getNextAllowedStatesForSprint
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse'
+  /request/getJsonData/1000580:  
+    get:
+      summary: endpoint used to get allowed state list by status id
+      operationId: getNextAllowedStatesForDsParticipant
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse'
+  /request/getJsonData/1000574:  
+    get:
+      summary: endpoint used to get allowed state list by status id
+      operationId: getNextAllowedStatesForTopic
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse'
+  /request/getJsonData/1000575:  
+    get:
+      summary: endpoint used to get allowed state list by status id
+      operationId: getNextAllowedStatesForFeature
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse'
+                  
+  /request/getJsonData/1000579:  
+    get:
+      summary: endpoint used to get allowed daily scrum state list by status id
+      operationId: getNextAllowedStatesForDailyScrum
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse' 
+
+  /request/getJsonData/1000375:  
+    get:
+      summary: endpoint used to get allowed user story state list by status id
+      operationId: getNextAllowedStatesForUserStory
+      tags:
+        - state
+      parameters:
+        - name: param1
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/GetAllowedStatesResponse'                     
+components:
+  schemas:
+    GetProductByIdResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/GetProductByIdResponseItem"
+    GetProductByIdResponseItem:
+      properties:
+        product_id:
+          type: integer
+          format: int64
+          description: "id of the product"
+        product_name:
+          type: string
+          description: "name of the product"
+    GetTopicsByProductIdResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/GetTopicByProductIdResponseItem'
+    GetTopicByProductIdResponseItem:
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "id of the topic"
+        text:
+          type: string
+          description: "description of the topic"
+        chat_url:
+          type: string
+          description: "url of chat of  the topic"
+        order_:
+          type: string
+          description: "order of the topic"
+    GetTopicMaxOrderByProductNameResponse:
+      properties:
+        max_topic_order:
+          type: string
+          # description: "max topic order" 
+    GetCurrentUserResponse:
+      properties:
+        company:
+          type: integer
+          format: int64
+          description: "id of the company"
+        user_id:
+          type: integer
+          format: int64
+          description: "id of the user"  
+        photo:
+          type: string
+          description: "path of the image of user"
+        role:
+          type: string
+          description: "role of the user"
+        user_code:
+          type: string
+          description: "code of the user"
+    GetMyDailyScrumsRsponse:
+      properties:
+        SP_ID:
+          type: integer
+          format: int64
+          description: "spring id"
+        progress:
+          type: integer
+          format: int32
+          description: "progress"  
+        DS_duration:
+          type: string
+          description: "daily scrum duration"
+        DS_end_time:
+          type: string
+          description: "begin of daily scrum"
+        DS_start_time:
+          type: string
+          description: "start time of daily scrum" 
+        End_date:
+          type: string
+          description: "date end of daily scrum"
+        Start_date:
+          type: string
+          description: "start date of scrum"
+        ds_end_time_done:
+          type: string
+          description: "checking daily scrum end" 
+        ds_start_time_done:
+          type: string
+          description: "checking daily scrum started"
+        info_status:
+          type: string
+          description: "status of daily scrum "
+        lock_date:
+          type: string
+          description: "lock date" 
+        mail_date:
+          type: string
+          description: "mail date"
+        name:
+          type: string
+          description: "name of daily scrum"
+        product_name:
+          type: string
+          description: "product name"     
+        scrum_master:
+          type: string
+          description: "scrum master code"
+        scrum_master_by_sprint:
+          type: string
+          description: "scrum master by sprint code"
+        sys_current_time:
+          type: string
+          description: "current time hh:mm"     
+    GetMyProductsRsponse:   
+      properties:
+        product_id:
+          type: integer
+          format: int64
+          description: "spring id"
+        product_name:
+          type: string
+          description: "product name"
+    GetProductsBySprintIdResponse :
+      properties:
+        product_id:
+          type: integer
+          format: int64
+          description: "spring id"
+        product_name:
+          type: string
+          description: "product name"
+    GetListParticipantsAndSprintTeam:
+      properties:
+        ds_part_id:
+          type: integer
+          format: int64
+          description: "ds id"
+        ds_state:
+          type: string
+          description: "ds state name"
+        ds_state_name:
+          type: string
+          description: "ds state name name"
+        photo:
+          type: string
+          description: "path of photo"
+        role_name:
+          type: string
+          description: "role name of user"
+        user_code:
+          type: string
+          description: "role code "
+        user_id:
+          type: integer
+          format: int64
+          description: "user id "
+    GetUserStoryDetailResponse:
+      properties:
+        id:
+          type: integer
+          format: int64
+        text:
+          type: string
+        description:
+          type: string
+        acceptanceCriteria:
+          type: string
+        project:
+          type: string
+        topicId:
+          type: integer
+          format: int64
+        topicName:
+          type: string
+        sprintId:
+          type: integer
+          format: int64
+        sprintName:
+          type: string
+        springShortName:
+          type: string
+        responsible:
+          type: string
+        role:
+          type: string
+        productId:
+          type: integer
+          format: int64 
+        product:
+          type: string
+        stateId:
+          type: integer
+          format: int64  
+        state:
+          type: string
+        storyPoints:
+          type: integer
+          format: int64
+        urgency:
+          type: string
+        urgencyIcon:
+          type: string
+        progress:
+          type: integer
+          format: int64
+        attachments_count:
+          type: integer
+          format: int64
+        userPhoto:
+          type: string
+        user_code:
+          type: string
+        benefit:
+          type: string
+        comments_count:
+          type: integer
+          format: int64
+        first_name:
+          type: string
+        last_name:
+          type: string
+        goal_desire:
+          type: string
+    GetSprintNameResponse :
+      type: array
+      items:
+        $ref: "#/components/schemas/GetSprintName"
+    GetSprintName :
+      properties:
+        Name:
+          type: string
+          description: "sprint name"
+        Sprint_ID:
+          type: integer
+          format: int64
+          description: "sprint id"
+    GetUserStoriesBySprintResponse :
+      type: array
+      items:
+        $ref: "#/components/schemas/GetUserStoriesBySprint"
+    GetUserStoriesBySprint :
+      properties:
+        Name:
+          type: string
+          description: "sprint name"
+        Sprint_ID:
+          type: integer
+          format: int64
+          description: "sprint id"
+    GetUnAssignedTasksResponse :
+      type: array
+      items:
+        $ref: "#/components/schemas/GetUnAssignedTasks"
+    GetUnAssignedTasks : 
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "task id"
+        resp_code:
+          type: string
+          description: "task code"
+        status:
+          type: string
+          description: "task status"
+        text:
+          type: string
+          description: "task titel"
+        type:
+          type: string
+          description: "task type"
+    GetMySprintsByProduct:
+      properties:
+        sprint_Id:
+          type: integer
+          format: int64
+          description: "sprint id"
+        name:
+          type: string
+          description: "sprint name"
+        state:
+          type: string
+          description: "task status"
+        endDate:
+          type: string
+          description: "end date of sprint"
+        startDate:
+          type: string
+          description: "start date of sprint"
+        expiration_in_days:
+          type: integer
+          format: int64
+          description: "expiration_in_days"
+    GetOpenedSprintsByProductRsponse:   
+         type: array
+         items:
+          $ref: "#/components/schemas/Sprint"
+    Sprint:
+      properties:
+        Sprint_ID:
+          type: integer
+        Name:
+          type: string
+        State:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        chat_url:
+          type: string
+        DsMeetingURL:
+          type: string    
+    GetSprintsByProductIdResponse:
+      type: object
+      properties:
+        sprintList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetSprintByProductIdResponseItem'
+    GetSprintByProductIdResponseItem:
+      properties:       
+        sprint_id:
+          type: integer
+          format: int64
+          description: "id of the topic"
+        sprint_name:
+          type: string
+          description: "Description of the topic"
+    GetStatusOfUserStoryResponse:
+      type: object
+      properties:
+        userStoryStateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetStatusOfUserStoryResponseItem'
+    GetStatusOfUserStoryResponseItem:
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "id of the item"
+        itemName:
+          type: string
+          description: "Description of the item"
+    GetProjectByProductIdResponse:
+      type: object
+      properties:
+        projectList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetProjectByProductIdResponseItem'
+    GetProjectByProductIdResponseItem:
+      properties:
+        project_id:
+          type: integer
+          format: int64
+          description: "id of the project"
+        project_name:
+          type: string
+          description: "Description of the project"
+    GetUserStoryByProductIdAndTopicIdResponse:
+      type: object
+      properties:
+        userStoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetUserStoryByProductIdAndTopicIdResponseItem'
+    GetUserStoryByProductIdAndTopicIdResponseItem:
+      properties:
+        assigned_tickets_number:
+          type: integer
+          format: int64
+          description: "id of the project"
+        chat_url:
+          type: string
+          description: "Description of the project"
+        orderbytopi:
+          type: integer
+          format: int64
+          description: "id of the project"
+        responsible:
+          type: string
+          description: "Description of the project"
+        projectName:
+          type: string
+          description: "Description of the project"
+        topicId:
+          type: string
+          description: "Description of the project"
+        topic_name:
+          type: string
+          description: "Description of the project"
+        state:
+          type: string
+          description: "Description of the project"
+        shortDescription:
+          type: string
+          description: "Description of the project"
+        progress:
+          type: string
+          description: "Description of the project"
+        sprintId:
+          type: string
+          description: "Description of the project"
+        storypoints:
+          type: string
+          description: "Description of the project"
+    TicketFormDto:
+      properties:
+        schema:
+          $ref: '#/components/schemas/TicketSchemaDto'
+        data:
+          $ref: '#/components/schemas/TicketDto'
+    TicketSchemaDto:
+        properties:
+          html:
+            type: array
+            items:
+              $ref: '#/components/schemas/TicketFieldDto'
+    TicketDto:
+        properties:
+          amount3:
+            type: string
+          amount4:
+            type: string
+          amount5:
+            type: string
+          apBank:
+            type: string
+          apId:
+            type: integer
+            format: int64
+          apName:
+            type: string
+          apTel:
+            type: string
+          assignment:
+            type: string
+          comment:
+            type: string
+          company:
+            type: string
+          country:
+            type: string
+          countryId:
+            type: integer
+            format: int64
+          creator:
+            type: string
+          customerId:
+            type: integer
+            format: int64
+          custUserId:
+            type: integer
+            format: int64
+          dateTime1:
+            type: string
+          dateTime2:
+            type: string
+          dateTime3:
+            type: string
+          deadLine:
+            type: string
+          editor:
+            type: string
+          editorId:
+            type: integer
+            format: int64
+          effort:
+            type: string
+          email:
+            type: string
+          environment:
+            type: string
+          estimatedEffort:
+            type: string
+          fileName1:
+            type: string
+          fileName2:
+            type: string
+          fileName3:
+            type: string
+          fl1:
+            type: integer
+            format: int64
+          fl2:
+            type: integer
+            format: int64
+          fl3:
+            type: integer
+            format: int64
+          infoMsg:
+            type: string
+          isChrq:
+            type: boolean
+          kundeRef:
+            type: string
+          lastChatMsg:
+            type: string
+          lastUpdatedField:
+            type: string
+          lockDate:
+            type: string
+          loggedUser:
+            type: integer
+            format: int64
+          longDescription:
+            type: string
+          mailDate:
+            type: string
+          matrixId:
+            type: integer
+            format: int64
+          oldStatus:
+            type: string
+          osName:
+            type: string
+          parentTicketId:
+            type: integer
+            format: int64
+          planRelease:
+            type: string
+          planReleaseId:
+            type: integer
+            format: int64
+          priority:
+            type: integer
+            format: int64
+          prodRelease:
+            type: string
+          productId:
+            type: integer
+            format: int64
+          productionReleaseId:
+            type: integer
+            format: int64
+          productView:
+            type: string
+          progress:
+            type: integer
+            format: int64
+          project:
+            type: string
+          release:
+            type: string
+          releaseId:
+            type: integer
+            format: int64
+          remark:
+            type: string
+          responsibleId:
+            type: integer
+            format: int64
+          responsiblePl:
+            type: integer
+            format: int64
+          responsibleView:
+            type: string
+          sentBackBy:
+            type: integer
+            format: int64
+          server:
+            type: string
+          serviceLevelInfo:
+            type: string
+          shortDescription:
+            type: string
+          solutionDescription:
+            type: string
+          state:
+            type: integer
+            format: int64
+          stateView:
+            type: string
+          targetDate:
+            type: string
+          testRelease:
+            type: string
+          testReleaseId:
+            type: string
+          textL1:
+            type: string
+          textM1:
+            type: string
+          textM2:
+            type: string
+          textM3:
+            type: string
+          textS1:
+            type: string
+          textS2:
+            type: string
+          textXl1:
+            type: string
+          ticketDatabase:
+            type: string
+          ticketId:
+            type: integer
+            format: int64
+          ticketView:
+            type: string
+          tsInsert:
+            type: string
+          tsUpdate:
+            type: string
+          type:
+            type: integer
+            format: int64
+          typeView:
+            type: string
+          urgency:
+            type: integer
+            format: int64
+          urgencyView:
+            type: string  
+    TicketFieldDto:
+        properties:
+          name:
+            type: string
+          id:
+            type: string
+          value:
+            type: string
+          caption:
+            type: string
+          placeholder:
+            type: string
+          type:
+            type: string
+          style:
+            type: string
+          classField:
+            type: string
+          requestId:
+            type: string
+          html:
+            type: object
+          fieldConfig:
+            type: string
+          dependsOn:
+            type: string
+          readonly:
+            type: string
+    GetProductTeamResponse:
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        user_code:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        roles:
+          type: string
+        me:
+          type: integer
+          format: int64
+        photo:
+          type: string
+    ListNotAssignedRolesToUserInSprintResponse:
+      properties:
+        role_id:
+          type: integer
+          format: int64
+        role_name:
+          type: string
+    GetUserRoleSprintMemberBySprintResponse:
+      properties:
+        ticket_id:
+          type: integer
+          format: int64
+        state:
+          type: integer
+          format: int64
+        user_code:
+          type: string
+        file_name_1:
+          type: string
+    GetAllowedStatesResponse:   
+         type: array
+         items:
+          $ref: "#/components/schemas/state"
+    state:
+      properties:
+        status_id:
+          type: integer
+          format: int64
+        status_name:
+          type: string

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+	<changeSet id="Requirement Nr: 10560598 - Create topic table" author="SBE">
+		<createTable tableName="topic">
+	  		<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="ticket_id" type="BIGINT(20)"/>
+			<column name="state_id" type="BIGINT(20)"/>
+			<column name="product_id" type="BIGINT(20)"/>
+			<column name="project" type="varchar(100)"/>
+			<column name="name" type="VARCHAR(250)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="description" type="TEXT"/>
+			<column name="display_order" type="BIGINT(20)"/>
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)"/>
+			<column name="created" type="DATETIME"><constraints nullable="false" /></column>
+			<column name="modifier" type="VARCHAR(250)"/>
+			<column name="modified" type="DATETIME"><constraints nullable="false" /></column>
+			<column name="version" type="INTEGER" defaultValue="0"><constraints nullable="false" /></column>
+		</createTable>
+	  	<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>	
+	<changeSet id="Requirement Nr: 10561266 - Create feature table" author="SHK">
+		<createTable tableName="feature">
+	  	<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+			<constraints primaryKey="true" nullable="false"/>
+		</column>
+		<column name="state_id" type="BIGINT(20)"/>
+		<column name="product_id" type="BIGINT(20)"/>
+		<column name="project" type="varchar(100)"/>
+		<column name="name" type="VARCHAR(250)">
+			<constraints nullable="false"/>
+		</column>
+		<column name="description" type="TEXT"/>
+		<column name="display_order" type="BIGINT(20)"/>
+		<!--STANDARD TECHNICAL COLUMNS -->
+		<column name="creator" type="VARCHAR(250)"/>
+		<column name="created" type="DATETIME">
+			<constraints nullable="false" />
+		</column>
+		<column name="modifier" type="VARCHAR(250)"/>
+		<column name="modified" type="DATETIME">
+			<constraints nullable="false" />
+		</column>
+		<column name="version" type="INTEGER" defaultValue="0">
+			<constraints nullable="false" />
+		</column>		
+	  </createTable>
+	  <modifySql dbms="mysql">
+      	<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  </modifySql>
+	</changeSet>
+	<changeSet	id="Requirement Nr: 10561499  - Create daily_scrum table" author="WKC">
+		<createTable tableName="daily_scrum">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="sprint_id" type="BIGINT(20)" />
+			<column name="state_id" type="BIGINT(20)" />
+			<column name="meeting_day" type="datetime" />
+			<column name="end_time" type="datetime" />
+			<column name="start_time" type="datetime" />
+			<column name="sprint_progress" type="decimal(31,15)" />
+			<column name="editor_id" type="BIGINT(20)" />
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)" />
+			<column name="created" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="modifier" type="VARCHAR(250)" />
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+	     	<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+		</modifySql>
+	</changeSet>
+	<changeSet	id="Requirement Nr: 10561499  - Create ds_participant table" author="WKC">
+		<createTable tableName="ds_participant">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="state_id" type="BIGINT(20)" />
+			<column name="responsible_id" type="bigint(20)" />
+			<column name="daily_scrum_id" type="bigint(20)" />
+			<column name="editor_id" type="BIGINT(20)" />
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)" />
+			<column name="created" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="modifier" type="VARCHAR(250)" />
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>
+	<changeSet	id="Requirement Nr: 10561499  - Create sprint table" author="WKC">
+		<createTable tableName="sprint">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+		    <column name="ticket_id" type="BIGINT(20)"/>
+			<column name="product_id" type="BIGINT(20)" />
+			<column name="state_id" type="BIGINT(20)" />
+			<column name="name" type="varchar(100)" />
+			<column name="start_date" type="date" />
+			<column name="end_date" type="date" />
+			<column name="ds_start_time" type="time" />
+			<column name="ds_duration" type="bigint(20)" />
+			<column name="short_name" type="varchar(100)" />
+			<column name="project" type="varchar(100)" />
+			<column name="parent" type="varchar(100)" />
+			<column name="ds_meeting_url" type="varchar(500)" />
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)" />
+			<column name="created" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="modifier" type="VARCHAR(250)" />
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>
+	<changeSet	id="Requirement Nr: 10561499  - Create sprint_member table"	author="WKC">
+		<createTable tableName="sprint_member">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="ticket_id" type="BIGINT(20)"/>
+			<column name="state_id" type="BIGINT(20)" />
+			<column name="user_code" type="VARCHAR(10)" />
+			<column name="role" type="varchar(100)" />
+			<column name="sprint_id" type="BIGINT(20)" >
+				<constraints foreignKeyName="FK_SPRINT_MEMBER_SPRINT_ID" references="sprint(id)" />
+			</column>
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)" />
+			<column name="created" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="modifier" type="VARCHAR(250)" />
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>
+
+	<changeSet	id="Requirement Nr: 10561499  - Create user_story table" author="WKC">
+		<createTable tableName="user_story">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="us_id" type="BIGINT(20)" />
+			<column name="responsible_id" type="BIGINT(20)" />
+			<column name="state_id" type="BIGINT(20)" />
+			<column name="product_id" type="BIGINT(20)" />
+			<column name="project" type="varchar(100)" />
+			<column name="topic_id" type="varchar(50)" />
+			<column name="sprint_id" type="BIGINT(20)" />
+			<column name="urgency" type="BIGINT(20)" />
+			<column name="short_description" type="varchar(250)" />
+			<column name="long_description" type="text" />
+			<column name="acceptance_criteria" type="text" />
+			<column name="order_by_ds" type="decimal(31,15)" />
+			<column name="order_by_topic" type="decimal(31,15)" />
+			<column name="story_points" type="BIGINT(20)" />
+			<column name="progress" type="BIGINT(20)" />
+			<column name="parent_id" type="BIGINT(20)" />
+			<column name="editor_id" type="BIGINT(20)" />
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)" />
+			<column name="created" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="modifier" type="VARCHAR(250)" />
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10568530  - Create default_topic table" author="SDH">
+		<createTable tableName="default_topic">
+			<column name="id" type="BIGINT(20)" autoIncrement="true" incrementBy="1">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			 <column name="product_id" type="BIGINT(20)">
+			 <constraints unique="true"	 nullable="false" uniqueConstraintName="UCN_DEFAULT_TOPIC_PRODUCT_ID"/>
+			 </column>
+			 <column name="topic_id" type="BIGINT(20)" >
+			 <constraints  nullable="false" foreignKeyName="FK_DEFAULT_TOPIC_TOPIC_ID" references="topic(id)" deleteCascade="true" />
+			 </column>
+			<!--STANDARD TECHNICAL COLUMNS -->
+			<column name="creator" type="VARCHAR(250)"/>
+			<column name="created" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="modifier" type="VARCHAR(250)"/>
+			<column name="modified" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="version" type="INTEGER" defaultValue="0">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+     		<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+	  	</modifySql>
+	</changeSet>
+	
+	<changeSet id="Requirement Nr: 10573155 - rename end_time and start_time on daily_scrum table" author="AKA">
+	     <renameColumn columnDataType="datetime" newColumnName="finished_at" oldColumnName="end_time" tableName="daily_scrum"/>
+	     <renameColumn columnDataType="datetime" newColumnName="stared_at" oldColumnName="start_time" tableName="daily_scrum"/>
+	</changeSet>
+
+	<changeSet id="Requirement Nr: 10573155 - remove editor_id from daily_scrum table" author="AKA">
+        <dropColumn  tableName="daily_scrum">
+            <column  name="editor_id"/>
+        </dropColumn>
+	</changeSet>
+
+	<changeSet id="Requirement Nr: 10573155 - add ticket_id to daily_scrum table" author="AKA">
+        <addColumn tableName="daily_scrum">
+             <column name="ticket_id" type="BIGINT(20)" />
+        </addColumn>	
+	</changeSet>
+
+	<changeSet id="Requirement Nr: 10573155 - add ForeignKey to sprint_id on daily_scrum table" author="AKA">
+        <addForeignKeyConstraint 
+               baseTableName="daily_scrum" 
+               baseColumnNames="sprint_id"
+               constraintName="FK_DAILY_SCRUM_SPRINT_ID"
+               referencedTableName="sprint"
+               referencedColumnNames="id"/>	
+
+	</changeSet>
+	
+	<changeSet id="Requirement Nr: 10573155 - remove meeting_day from daily_scrum table" author="AKA">
+        <dropColumn  tableName="daily_scrum">
+            <column  name="meeting_day"/>
+        </dropColumn>
+	</changeSet>
+	
+	<changeSet id="Requirement Nr: 10573164 - rename responsible_id  on ds_participant table" author="SDH">
+	     <renameColumn columnDataType="BIGINT(20)" newColumnName="user_id" oldColumnName="responsible_id" tableName="ds_participant"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10573164 - add ForeignKey to daily_scrum_id on ds_participant table" author="SDH">
+        <addForeignKeyConstraint 
+               baseTableName="ds_participant" 
+               baseColumnNames="daily_scrum_id"
+               constraintName="FK_DS_PARTICIPANT_DAILY_SCRUM_ID"
+               referencedTableName="daily_scrum"
+               referencedColumnNames="id"/>	
+		<addNotNullConstraint columnName="daily_scrum_id" columnDataType="BIGINT(20)" tableName="ds_participant"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10573164 - add user_code and ticket_id to ds_participant table" author="SDH">
+        <addColumn tableName="ds_participant">
+             <column name="user_code" type="VARCHAR(10)"/>
+             <column name="ticket_id" type="BIGINT(20)" />
+        </addColumn>	
+	</changeSet>
+
+	<changeSet id="Requirement Nr: 10573155 - rename started_at on daily_scrum table" author="AKA">
+	     <renameColumn columnDataType="datetime" newColumnName="started_at" oldColumnName="stared_at" tableName="daily_scrum"/>
+	</changeSet>
+	
+</databaseChangeLog>

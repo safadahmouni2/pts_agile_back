@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+	<changeSet
+		id="Requirement Nr: 10573294 add missing fields to user_story  "
+		author="LME">
+		<addColumn tableName="user_story">
+			<column name="test_run" type="VARCHAR(100)" />
+			<column name="test_step" type="VARCHAR(100)" />
+			<column name="feature_id" type="BIGINT(20)" />
+			<column name="test_id" type="BIGINT(20)" />
+			<column name="role" type="VARCHAR(100)" />
+			<column name="goal" type="VARCHAR(250)" />
+			<column name="benefit" type="VARCHAR(250)" />
+			<column name="comment" type="VARCHAR(250)" />
+			<column name="chat_message" type="VARCHAR(250)" />
+
+		</addColumn>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10573294 update type of topic_id on user_story  "
+		author="LME">
+		<modifyDataType tableName="user_story"
+			columnName="topic_id" newDataType="BIGINT(20)" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10573294 - add ForeignKey to sprint_id , topic_id, feature_id on user_story table"
+		author="LME">
+		<addForeignKeyConstraint
+			baseTableName="user_story" baseColumnNames="sprint_id"
+			constraintName="FK_USER_STORY_SPRINT_ID" referencedTableName="sprint"
+			referencedColumnNames="id" />
+
+		<addForeignKeyConstraint
+			baseTableName="user_story" baseColumnNames="topic_id"
+			constraintName="FK_USER_STORY_TOPIC_ID" referencedTableName="topic"
+			referencedColumnNames="id" />
+
+		<addForeignKeyConstraint
+			baseTableName="user_story" baseColumnNames="feature_id"
+			constraintName="FK_USER_STORY_FEATURE_ID"
+			referencedTableName="feature" referencedColumnNames="id" />
+
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10573387 add not null constraint to sprint_id"
+		author="AKA">
+		<addNotNullConstraint columnName="sprint_id"
+			columnDataType="BIGINT(20)" tableName="daily_scrum" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10573164 - remove editor_id from ds_participant table"
+		author="SDH">
+		<dropColumn tableName="ds_participant">
+			<column name="editor_id" />
+		</dropColumn>
+	</changeSet>
+
+
+	<changeSet
+		id="Requirement Nr: 10573294 update type of test_run and test step on user_story and rename them"
+		author="LME">
+		<modifyDataType tableName="user_story"
+			columnName="test_run" newDataType="BIGINT(20)" />
+		<modifyDataType tableName="user_story"
+			columnName="test_step" newDataType="BIGINT(20)" />
+		<renameColumn columnDataType="BIGINT(20)"
+			newColumnName="test_run_id" oldColumnName="test_run"
+			tableName="user_story" />
+		<renameColumn columnDataType="BIGINT(20)"
+			newColumnName="test_step_id" oldColumnName="test_step"
+			tableName="user_story" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10573294 delete column comment, editorId"
+		author="LME">
+		<dropColumn tableName="user_story">
+			<column name="comment" />
+			<column name="editor_id" />
+		</dropColumn>
+	</changeSet>
+
+	<changeSet id="Requirement Nr: 10573294 add column ticket_id"
+		author="LME">
+		<addColumn tableName="user_story">
+			<column name="ticket_id" type="BIGINT(20)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10576692  add constraint to column us_id"
+		author="LME">
+		<addUniqueConstraint columnNames="us_id"
+			constraintName="unique_us_id" tableName="user_story" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10576775   rename the column name to urgencyId"
+		author="LME">
+		<renameColumn columnDataType="BIGINT(20)"
+			newColumnName="urgency_id" oldColumnName="urgency"
+			tableName="user_story" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10577620 - add user_code  to user_story"
+		author="LME">
+		<addColumn tableName="user_story">
+			<column name="user_code" type="VARCHAR(10)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10580029  update old user stories data"
+		author="AKA">
+		<sql>
+			update pts_agile.user_story SET product_id =(SELECT product_id FROM
+			pts_agile.sprint WHERE id=sprint_id) WHERE product_id IS null;
+			update pts_agile.user_story SET product_id =(SELECT product_id FROM
+			pts_agile.topic WHERE id=topic_id) WHERE product_id IS null;
+			update pts_agile.user_story SET product_id =(SELECT product_id FROM
+			pts_agile.feature WHERE id=feature_id) WHERE product_id IS null;
+			delete from pts_agile.user_story WHERE product_id IS null;
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10580029  add not null constraint to column productId "
+		author="AKA">
+		<addNotNullConstraint columnName="product_id"
+			columnDataType="BIGINT(20)" tableName="user_story" />
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10580029  update old sprint, topic and feature data"
+		author="AKA">
+		<sql>
+			UPDATE pts_agile.sprint s SET product_id = (select product_id from (select
+			s1.product_id , s1.parent from pts_agile.sprint s1 where
+			s1.product_id IS not null) as t where t.parent = s.id) WHERE
+			product_id IS null and parent is not null;
+			DELETE FROM pts_agile.sprint WHERE product_id IS null;
+
+			DELETE FROM pts_agile.topic WHERE product_id IS null;
+			DELETE FROM pts_agile.feature WHERE product_id IS null;
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10580029  add not null constraint to column productId of sprint, topic and feature"
+		author="AKA">
+		<addNotNullConstraint columnName="product_id"
+			columnDataType="BIGINT(20)" tableName="sprint" />
+
+		<addNotNullConstraint columnName="product_id"
+			columnDataType="BIGINT(20)" tableName="topic" />
+
+		<addNotNullConstraint columnName="product_id"
+			columnDataType="BIGINT(20)" tableName="feature" />
+
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 delete old user_story data" author="AKA">
+		<sql>
+			DELETE FROM pts_agile.user_story WHERE ticket_id IS NOT null and ticket_id
+			IN
+			(select ticket_id from (select ticket_id from pts_agile.user_story where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 delete old daily_scrum data" author="AKA">
+		<sql>
+			DELETE FROM pts_agile.daily_scrum WHERE ticket_id IS NOT null and ticket_id
+			IN
+			(select ticket_id from (select ticket_id from pts_agile.daily_scrum where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 delete old ds_participant data"
+		author="AKA">
+		<sql>
+			DELETE FROM pts_agile.ds_participant WHERE ticket_id IS NOT null and
+			ticket_id IN
+			(select ticket_id from (select ticket_id from pts_agile.ds_participant where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 delete old sprint data" author="AKA">
+		<sql>
+			DELETE FROM pts_agile.sprint WHERE ticket_id IS NOT null and ticket_id IN
+			(select ticket_id from (select ticket_id from pts_agile.sprint where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 delete old sprint_member data"
+		author="AKA">
+		<sql>
+			DELETE FROM pts_agile.sprint_member WHERE ticket_id IS NOT null and
+			ticket_id IN
+			(select ticket_id from (select ticket_id from pts_agile.sprint_member where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+	<changeSet
+		id="Requirement Nr: 10581711 delete old topic data" author="AKA">
+		<sql>
+			DELETE FROM pts_agile.topic WHERE ticket_id IS NOT null and ticket_id IN
+			(select ticket_id from (select ticket_id from pts_agile.topic where
+			ticket_id is not
+			null group by ticket_id having count(*) > 1 ) as t where t.ticket_id =
+			ticket_id);
+		</sql>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 Add Unique constrains to ticketId to all entities"
+		author="AKA">
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_ds_ticket_id" tableName="daily_scrum" />
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_dspart_ticket_id" tableName="ds_participant" />
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_sprint_ticket_id" tableName="sprint" />
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_sm_ticket_id" tableName="sprint_member" />
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_topic_ticket_id" tableName="topic" />
+		<addUniqueConstraint columnNames="ticket_id"
+			constraintName="unique_us_ticket_id" tableName="user_story" />
+
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10581711 Add index to ticketId to all entities"
+		author="AKA">
+		<createIndex indexName="idx_ds" tableName="daily_scrum"
+			unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+		<createIndex indexName="idx_ds_part"
+			tableName="ds_participant" unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+		<createIndex indexName="idx_sprint" tableName="sprint"
+			unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+		<createIndex indexName="idx_sm" tableName="sprint_member"
+			unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+		<createIndex indexName="idx_topic" tableName="topic"
+			unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+		<createIndex indexName="idx_us" tableName="user_story"
+			unique="true">
+			<column name="ticket_id" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10582007 - add exported_at to user_story"
+		author="AKA">
+		<addColumn tableName="user_story">
+			<column name="exported_at" type="DATETIME" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10582066 - add exported_at to daily_scrum"
+		author="AKA">
+		<addColumn tableName="daily_scrum">
+			<column name="exported_at" type="DATETIME" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet
+		id="Requirement Nr: 10582067 - add exported_at to ds_participant"
+		author="AKA">
+		<addColumn tableName="ds_participant">
+	<column name="exported_at" type="DATETIME" />
+		</addColumn>
+	</changeSet>
+	
+		<changeSet
+		id="Requirement Nr: 10581998  add column exported_at to sprint" author="SDH">
+		<addColumn tableName="sprint">
+			<column name="exported_at" type="DATETIME" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10581996 add column exported_at" author="HCH">
+		<addColumn tableName="topic">
+			<column name="exported_at" type="DATETIME" />
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

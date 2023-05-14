@@ -1,0 +1,90 @@
+server:
+  port: 8091
+
+info:
+  app:
+    name: ${spring.application.name}  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka
+  instance:
+    prefer-ip-address: true
+    appname: agile-service
+
+spring:
+  application:
+    name: agile-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/${pts.database.schema-name}?createDatabaseIfNotExist=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
+    hikari:
+      maximum-pool-size: 2  
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: ${pts.database.schema-name}
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.xml
+    default-schema: ${pts.database.schema-name}
+  profiles:
+    active: local
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include : '*'
+  info:
+    env:
+      enabled: true
+
+graphql:
+  servlet:
+    enabled: true
+    corsEnabled: true
+    cors:  
+      allowed-origins: "*"
+      allowed-headers: 
+      - Content-Type  
+      allowedMethods:
+      - GET
+      - POST
+      - DELETE
+      - PATCH
+      - PUT
+      - HEAD
+      - OPTIONS      
+pts:
+  database:
+    schema-name: pts_agile
+  log:
+    path: ./logs
+  pts-core:
+    base-url:  http://192.168.0.78:8085/services
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+    basedir: tomcat
+
+logging:
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
+  level:
+    com.zaxxer.hikari: TRACE
+    com.zaxxer.hikari.HikariConfig: DEBUG    

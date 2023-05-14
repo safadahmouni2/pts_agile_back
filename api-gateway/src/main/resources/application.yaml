@@ -1,0 +1,56 @@
+server:
+  port: 8087
+
+info:
+  app:
+    name: ${spring.application.name}  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka
+  instance:
+    prefer-ip-address: true
+    appname: api-gateway
+
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    active: local
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true      
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods:
+            - GET
+            - POST
+            - DELETE
+            - PATCH
+            - PUT
+            - HEAD
+            - OPTIONS
+            allowedHeaders:
+            - Authorization
+            - Content-Type
+            - x-requested-with
+            - actor
+            maxAge: 3600    
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include : '*'
+  info:
+    env:
+      enabled: true
+pts:
+  log:
+    path: ./logs

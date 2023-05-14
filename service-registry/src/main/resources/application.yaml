@@ -1,0 +1,40 @@
+server:
+  port: 8061
+  shutdown: graceful
+
+info:
+  app:
+    name: ${spring.application.name}   
+spring:
+  application:
+    name: service-registry
+  cloud:
+    config:
+      uri: http://localhost:8888
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      probability: 100
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include : '*'
+  info:
+    env:
+      enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+pts:
+  log:
+    path: ./logs

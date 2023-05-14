@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+	<changeSet id="Requirement Nr: 10571491 - Create pts_ticket_import table" author="ZSE" dbms="mysql" >
+        <sqlFile endDelimiter="\$\$" stripComments="true" path="../sql/pts_ticket_import.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<!-- Export procedures creation -->	
+	<changeSet id="Requirement Nr: 10571491 - export topic script" author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_topic.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10571491 - export sprint script" author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_sprint.sql" relativeToChangelogFile="true"/>
+	</changeSet>	
+	<changeSet id="Requirement Nr: 10573200 - export daily scrum script" author="HCH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_daily_scrum.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10573204 - export daily scrum participant script" author="HCH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_ds_participant.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10575630 - export user story script" author="HCH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_user_story.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10581998 - update sprint script" author="SDH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/export_user_story.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10571491 - export schedule script" author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/data_export.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<!-- Sync procedures creation -->
+	<changeSet id="Requirement Nr: 10582007 - sync user story script " author="AKA" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/sync_user_story.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10581998 - sync sprint " author="SDH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/sync_sprint.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582066 - sync daily scrum script " author="AKA" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/sync_daily_scrum.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10581996 - sync topic script " author="HCH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/sync_topic.sql"
+			relativeToChangelogFile="true" />
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582067 - sync ds_participant script " author="HCH" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/sync_ds_participant.sql"
+			relativeToChangelogFile="true" />
+    </changeSet>	
+    <changeSet id="Requirement Nr: 10582007 - sync schedule script " author="AKA" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/data_sync.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<!-- Migration procedures creation -->
+	<changeSet id="Requirement Nr: 10582550 - migration topic script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_topic.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582550 - migration sprint script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_sprint.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582550 - migration sprint member script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_sprint_member.sql" relativeToChangelogFile="true"/>
+	</changeSet>		
+	<changeSet id="Requirement Nr: 10582550 - migration user story script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_user_story.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582550 - migration DS script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_daily_scrum.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+	<changeSet id="Requirement Nr: 10582550 - migration DS participant script " author="ZSE" dbms="mysql" runOnChange='true'>
+		<sqlFile endDelimiter="\$\$" path="../sql/migration_ds_participant.sql" relativeToChangelogFile="true"/>
+	</changeSet>	
+</databaseChangeLog>

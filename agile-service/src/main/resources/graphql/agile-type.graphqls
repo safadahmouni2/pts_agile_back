@@ -1,0 +1,299 @@
+# scalars
+scalar Long
+scalar BigDecimal
+scalar Date
+scalar LocalDateTime
+scalar DateTime
+scalar Boolean
+
+schema {
+	query : Query
+	mutation: Mutation
+}
+
+type Query {
+    # retrieve Topic Data by Given id
+	getTopic(id: Long!): Topic
+	# retrieve Topic Max order by Given product id
+	getTopicMaxOrderByProduct(productId: Long!): TopicMaxOrderOutput
+	# retrieve all product's topics
+	topicsByProductId(productId:Long!): Topics
+	
+	# retrieve all product's sprints
+	getSprintsByProductId(productId: Long!): Sprints
+	
+	#get SprintMembers By SprintId and stateId
+	filterSprintMembers(input: SearchSprintMemberInput!): SprintMembers
+	
+	# retrieve sprint details by id
+	getSprintDetailsById(id: Long!): Sprint
+	
+	# retrieve Feature Data by Given id
+	getFeature(id: Long!): Feature
+	# retrieve all features by productId
+	getFeaturesByProductId(productId:Long!): Features
+	# retrieve Feature Max order by Given product id
+	getFeatureMaxOrderByProduct(productId: Long!): FeatureMaxOrderOutput
+	
+	# retrieve isDefaultTopic by Given topic id
+	isDefaultTopic(topicId: Long!): Boolean
+	
+	# retrieve DefaultTopic  by Given product id
+	getDefaultTopicByProductId(productId: Long!): DefaultTopic
+	
+	# retrieve started daily scrum  by given sprint id
+	startedDailyScrumBySprintId(sprintId: Long!): DailyScrum
+	
+	# retrieve user story by Given sprint id
+	getUserStoriesBySprintId(sprintId: Long!): UserStories
+	
+	# retrieve user story by Given feature id
+	getUserStoriesByFeatureId(featureId: Long!): UserStories
+	
+	# retrieve user story by Given topic id
+	getUserStoriesByTopicId(topicId: Long!): UserStories
+	
+	# retrieve user story by Given product id
+	getUserStoriesByProductId(productId: Long!): UserStories
+	
+	# retrieve sprint details by ticket id
+	getSprintDetailsByTicketId(ticketId: Long!): Sprint
+	
+    # retrieve user story  by sprint id and stateID
+	getListUserStoriesBySprintIdAndStateId(sprintId: Long!, states:[Long]): UserStories
+	
+    # retrieve status and count of Us retrieved by SprintId
+	getCountUsPerStateBySprint(sprintId: Long!): StateCounts
+	
+	# retrieve user story details
+	getUserStoryDetails(id: Long!): UserStory
+	
+	# retrieve 
+	getUserStoryMaxOrder(topicId: Long!): Long
+	
+	# retrieve 
+	getUserstoryPointsDsbySprint(sprintId: Long!): Long
+	
+	# retrieve user story by Given product id without sprint
+	getUserStoriesByProductIdWithoutSprint(productId: Long!): UserStories
+	
+	# retrieve user story by Given product id without feature
+	getUserStoriesByProductIdWithoutFeature(productId: Long!): UserStories
+	
+	# retrieve user story by Given product id without topic
+	getUserStoriesByProductIdWithoutTopic(productId: Long!): UserStories
+	
+    # retrieve current user's daily scrums
+	myDailyScrums(productIds: [Long!]!): MyDailyScrums	
+	
+	# retrieve sprint progress 
+	getSprintProgress(sprintId: Long!): BigDecimal
+	
+}
+
+type Mutation {
+	# create new Topic
+	createTopic(input: TopicInput!): Topic
+	# update topic
+	updateTopic(id: Long!, input: TopicInput!): Topic
+	
+	# save new Sprint
+	createSprint(input: SprintInput!): Sprint
+	
+	# update Sprint
+	updateSprint(id: Long!, input: SprintUpdateInput!): Sprint
+	
+	# create sprintMember
+	createSprintMember(input: SprintMemberInput!): SprintMember
+	
+	# update sprintMember
+	updateSprintMember(id: Long!, input: SprintMemberInput): SprintMember
+	
+	# create new Feature
+	createFeature(input: FeatureInput!): Feature
+	
+	# update Feature
+	updateFeature(id: Long!, input: FeatureInput!): Feature
+	
+	# create new DefaultTopic
+	createDefaultTopic(input: DefaultTopicInput!): DefaultTopic
+	
+	# delete DefaultTopic
+	deleteDefaultTopic(productId: Long!): String
+	
+	# create new DsParticipant
+	createDsParticipant(input: DsParticipantInput!): DsParticipant
+	
+	# create new DailyScrum
+	createDailyScrum(input: DailyScrumInput!): DailyScrum
+	
+	# update new DailyScrum
+	updateDailyScrum(id: Long!, input: DailyScrumUpdateInput!): DailyScrum
+	
+	# update new DsParticipant
+	updateDsParticipant(id: Long!, input: UpdateDsParticipantInput!): DsParticipant
+	
+	# create new UserStory
+	createUserStory(input: UserStoryInput!): UserStory
+
+	# update new UserStory
+	updateUserStory(id: Long!, input: UserStoryUpdateInput!): UserStory
+}
+
+type Feature {
+  id: Long
+  name: String
+  description: String
+  stateId: Long
+  productId: Long!
+  project: String
+  displayOrder: Long
+}
+
+type Features {
+   items: [Feature]
+}
+
+type Topic {
+   id: Long
+   name: String
+   stateId: Long 
+   productId: Long!
+   project: String
+   description: String
+   displayOrder: Long
+   ticketId: Long
+}
+
+type Topics {
+   items: [Topic]
+}
+
+type Sprints {
+   items: [Sprint]
+}
+
+type SprintMembers {
+   items: [SprintMember]
+}
+
+type Sprint {
+  id: Long
+  productId:Long!
+  ticketId: Long
+  stateId: Long
+  name: String
+  startDate: Date
+  endDate: Date
+  dsStartTime: LocalTime
+  dsDuration: Long
+  shortName: String
+  project: String
+  parent: String
+  dsMeetingUrl: String
+
+}
+
+type SprintMember {
+	id: Long
+  	ticketId: Long
+  	stateId: Long
+  	userCode: String,
+  	role: String,
+  	sprintId: Long
+}
+
+type TopicMaxOrderOutput {
+   maxOrder: Long
+
+}
+
+type FeatureMaxOrderOutput {
+   maxOrder: Long
+
+}
+
+type DefaultTopic {
+   id: Long
+   productId: Long!
+   topicId: Long 
+  
+  
+}
+
+type DsParticipant {
+	id: Long
+	stateId: Long
+  	userId: Long
+  	userCode: String
+  	dailyScrum: DailyScrum!
+  	ticketId: Long
+}
+
+type DailyScrum {
+   id: Long!
+   ticketId: Long 
+   stateId: Long
+   startedAt: LocalDateTime 
+   finishedAt: LocalDateTime
+   sprintProgress: BigDecimal 
+   sprint: Sprint!
+   dsParticipants:[DsParticipant]
+   creator: String
+}
+
+type UserStory {
+   id: Long!
+   usId: Long
+   ticketId: Long 
+   stateId: Long
+   topic: Topic
+   feature: Feature
+   parentId: Long
+   productId: Long!
+   project:String
+   sprint: Sprint
+   shortDescription: String 
+   longDescription: String
+   responsibleId: Long
+   urgencyId: Long
+   progress: BigDecimal
+   storyPoints: BigDecimal
+   orderByTopic: BigDecimal
+   acceptanceCriteria: String
+   userCode: String
+}
+
+type UserStories {
+   items: [UserStory]
+}
+
+type StateCounts {
+ items: [StateCount]
+}
+
+type StateCount {
+  stateId: Long
+  count: Long
+}
+
+type MyDailyScrums {
+   items: [MyDailyScrumOutput]
+}
+
+type MyDailyScrumOutput {
+   sprintId: Long!
+   sprintTicketId: Long
+   sprintName: String 
+   startDate: Date
+   endDate: Date
+   dsStartTime: LocalTime
+   dsEndTime: LocalTime
+   dsDuration: Long
+   dsStartedAt: LocalDateTime
+   dsFinishedAt: LocalDateTime 
+   dsStatusInfo: String 
+   sprintProgress: BigDecimal
+   productId: Long!
+   scrumMasterBySprint: String
+}

@@ -1,0 +1,35 @@
+version: "3.7"
+
+volumes:
+  db-data:
+    name: db-data
+  pma-data:
+    name: pma-data
+  
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    depends_on:
+      - db    
+    ports:
+      - "8081:80" 
+    volumes:
+      - pma-data:/var/lib/phpmyadmin
+    links:
+      - db      
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
